@@ -59,6 +59,7 @@ module.exports = function (grunt) {
         done             = this.async(),
         errors           = 0,
         output           = options.output || false,
+        failWithoutWarnings = options.failWithoutWarnings || false,
         failWithOutput   = options.failWithOutput || false,
         silent           = options.silent || false,
         reportFailure    = !output || (output && failWithOutput),
@@ -104,7 +105,7 @@ module.exports = function (grunt) {
       });
     }, function () {
       // Fail if errors are reported and we aren't outputing to a file
-      if (reportFailure && errors > 0) {
+      if (!failWithoutWarnings && reportFailure && errors > 0) {
         grunt.fail.warn(errors + ' tests failed');
       }
 
